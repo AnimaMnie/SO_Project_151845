@@ -39,14 +39,25 @@ void sigint_handler(int sig)
 int main(void)
 {
     // Parametry
-    int N          = 3;      //Liczba pociągów dostępnych na stacji
-    int P          = 100;    //Maksymalna liczba pasażerów
-    int R          = 0;      //Maksymalna liczba osób z rowerami
-    int T          = 5;      //Czas jaki pociąg przebywa na stacji
-    int Ti         = 30;     //Czas powrotu pociągu na stację
-    int TOTAL_PASS = 20;     //Całkowita liczba pasażerów
+    int N          = 4;          //Liczba pociągów dostępnych na stacji
+    int P          = 500;         //Maksymalna liczba pasażerów w pociągu
+    int R          = 200;         //Maksymalna liczba osób z rowerami w pociągu
+    int T          = 10;          //Czas jaki pociąg przebywa na stacji
+    int Ti         = 60;         //Czas powrotu pociągu na stację
+    int TOTAL_PASS = 3000;         //Całkowita liczba pasażerów
 
-    printf("[MAIN] N=%d, P=%d, R=%d, T=%d, Ti=%d, TOTAL_PASS=%d\n",
+
+    if (TOTAL_PASS <= 0) {
+        fprintf(stderr, "Błąd: Liczba pasażerów musi być większa od 0.\n");
+        return 1;
+    }
+
+    if (N <= 0 || P < R || R < 0 || T <= 0 || Ti <= 0) {
+        fprintf(stderr, "Błąd: Wszystkie parametry muszą być większe od zera (poza R, które może być zerem).\n");
+        return 1;
+    }
+
+    printf( "[MAIN] N=%d, P=%d, R=%d, T=%d, Ti=%d, TOTAL_PASS=%d\n",
            N, P, R, T, Ti, TOTAL_PASS);
 
     struct sigaction sa;
